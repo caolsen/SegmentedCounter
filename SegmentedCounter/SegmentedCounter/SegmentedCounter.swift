@@ -32,7 +32,7 @@ class SegmentedCounter: UIControl {
   }
   
   // border color for inactive segments
-  var segmentBorderColor = UIColor.blueColor().CGColor {
+  var segmentBorderColor = UIColor.blue.cgColor {
     didSet {
       resetDisplayPropertiesForAllSegments()
     }
@@ -53,7 +53,7 @@ class SegmentedCounter: UIControl {
   }
   
   // used for active segment fill
-  var segmentBackgroundColor = UIColor.blueColor().CGColor {
+  var segmentBackgroundColor = UIColor.blue.cgColor {
     didSet {
       resetDisplayPropertiesForAllSegments()
     }
@@ -81,7 +81,7 @@ class SegmentedCounter: UIControl {
   // MARK: - Private Variables
   
   // segment height is equal to the control height
-  private var segmentHeight: CGFloat {
+  fileprivate var segmentHeight: CGFloat {
     return CGFloat(bounds.height)
   }
   
@@ -89,11 +89,11 @@ class SegmentedCounter: UIControl {
      The width of each segment is determined by the
      total width of the control minus the segment padding.
    */
-  private var segmentWidth: CGFloat {
+  fileprivate var segmentWidth: CGFloat {
     return CGFloat((bounds.width - (segmentPadding * CGFloat(numberOfSegments - 1))) / CGFloat(numberOfSegments))
   }
   
-  private var segmentLayers = [SegmentLayer]()
+  fileprivate var segmentLayers = [SegmentLayer]()
   
   // MARK: - Inits
   
@@ -112,7 +112,7 @@ class SegmentedCounter: UIControl {
     super.init(coder: aDecoder)
   }
   
-  private func setupSegmentsForInit() {
+  fileprivate func setupSegmentsForInit() {
     for segmentNumber in 1...numberOfSegments {
       let newSegmentLayer = SegmentLayer()
       newSegmentLayer.segmentId = segmentNumber
@@ -127,8 +127,8 @@ class SegmentedCounter: UIControl {
   
   // MARK: - Function Overrides
   
-  override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
-    let touchLocation = touch.locationInView(self)
+  override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+    let touchLocation = touch.location(in: self)
     
     // find touched segment
     for segmentToCheckForTouch in segmentLayers {
@@ -145,7 +145,7 @@ class SegmentedCounter: UIControl {
   /*
      Fills in segments starting with the current value or touched segment and working backwards.
    */
-  private func fillInSegments(touchedSegment: Int) {
+  fileprivate func fillInSegments(_ touchedSegment: Int) {
     // if only the first segment is filled and it is touched 
     // again then clear all segments
     if touchedSegment == 1 {
@@ -171,8 +171,8 @@ class SegmentedCounter: UIControl {
   /*
      Calculates initial segment layer positions based on control size and segment padding.
    */
-  private func updateLayerFrames() {
-    for (index, segment) in segmentLayers.enumerate() {
+  fileprivate func updateLayerFrames() {
+    for (index, segment) in segmentLayers.enumerated() {
       let segmentXPos = (segmentWidth + segmentPadding) * CGFloat(index)
       segment.frame = CGRect(x: segmentXPos, y: 0.0, width: segmentWidth, height: segmentHeight)
       resetDisplayPropertiesForSegment(segment)
@@ -183,14 +183,14 @@ class SegmentedCounter: UIControl {
   
   // MARK: Helper functions for resetting display properties
   
-  private func resetDisplayPropertiesForSegment(segment: SegmentLayer) {
+  fileprivate func resetDisplayPropertiesForSegment(_ segment: SegmentLayer) {
     segment.borderColor = segmentBorderColor
     segment.borderWidth = segmentBorderWidth
     segment.cornerRadius = segmentCornerRadius
     segment.setNeedsDisplay()
   }
   
-  private func resetDisplayPropertiesForAllSegments() {
+  fileprivate func resetDisplayPropertiesForAllSegments() {
     for segment in segmentLayers {
       resetDisplayPropertiesForSegment(segment)
     }
