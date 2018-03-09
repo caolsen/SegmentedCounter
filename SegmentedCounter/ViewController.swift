@@ -9,15 +9,15 @@
 import UIKit
 
 class ViewController: UIViewController {
-  let segmentedCounter = SegmentedCounter(frame: CGRectZero)
-  let segmentedCounterTwo = SegmentedCounter(frame: CGRectZero, withNumberOfSegments: 7)
+  let segmentedCounter = SegmentedCounter(frame: CGRect.zero)
+  let segmentedCounterTwo = SegmentedCounter(frame: CGRect.zero, withNumberOfSegments: 7)
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     segmentedCounterTwo.currentValue = 2
-    segmentedCounterTwo.segmentBackgroundColor = UIColor.redColor().CGColor
-    segmentedCounterTwo.segmentBorderColor = UIColor.redColor().CGColor
+    segmentedCounterTwo.segmentBackgroundColor = UIColor.red.cgColor
+    segmentedCounterTwo.segmentBorderColor = UIColor.red.cgColor
     
     view.addSubview(segmentedCounter)
     view.addSubview(segmentedCounterTwo)
